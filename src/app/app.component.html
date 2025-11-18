@@ -13,6 +13,89 @@
       </div>
     </div>
   </section>
+
+  <!-- Strava-->
+  <section class="resume-section" id="strava_stats">
+    <div class="resume-section-content">
+      <h2 class="mb-5 text-center">
+        <i class="fas fa-running me-4" style="color: #e74c3c;"></i>
+        <i class="fas fa-bicycle me-4" style="color: #f39c12;"></i>
+        Strava stats year to date
+      </h2>
+
+      <!-- Loading / Error -->
+      <div *ngIf="loading" class="text-center py-5 text-muted fs-4">Loading latest stats from Strava…</div>
+      <div *ngIf="error" class="alert alert-warning text-center">
+        Stats temporarily unavailable —
+        <a href="https://www.strava.com/athletes/74736765" target="_blank">view on Strava →</a>
+      </div>
+
+      <!-- Stats Grid -->
+      <div *ngIf="stats && !loading && !error" class="row g-5 justify-content-center">
+
+        <!-- RUNNING -->
+        <div class="col-lg-6">
+          <div class="card h-100 border-0 shadow-sm text-center hover-lift transition-all">
+            <div class="card-body py-5">
+              <h3 class="card-title mb-4 fs-3 text-dark fw-medium">
+                <i class="fas fa-running me-2" style="color: #e74c3c;"></i> Running – YTD
+              </h3>
+              <p class="display-3 fw-bold mb-0 text-muted">
+                {{ stravaService.formatDistance(stats.ytd_run_totals.distance) }}
+                <small class="fs-4 text-muted fw-normal">km</small>
+              </p>
+              <div class="row text-muted mt-4 fs-5">
+                <div class="col-4">
+                  <strong class="fs-4">{{ stats.ytd_run_totals.count }}</strong><br><small>runs</small>
+                </div>
+                <div class="col-4">
+                  <strong class="fs-4">{{ stats.ytd_run_totals.elevation_gain.toFixed(0) }}</strong><br><small>m ↑</small>
+                </div>
+                <div class="col-4">
+                  <strong class="fs-4">{{ stravaService.formatMovingTime(stats.ytd_run_totals.moving_time) }}</strong><br><small>moving time</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CYCLING -->
+        <div class="col-lg-6">
+          <div class="card h-100 border-0 shadow-sm text-center hover-lift transition-all">
+            <div class="card-body py-5">
+              <h3 class="card-title mb-4 fs-3 text-dark fw-medium">
+                <i class="fas fa-bicycle me-2" style="color: #f39c12;"></i> Cycling – YTD
+              </h3>
+              <p class="display-3 fw-bold mb-0 text-muted">
+                {{ stravaService.formatDistance(stats.ytd_ride_totals.distance) }}
+                <small class="fs-4 text-muted fw-normal">km</small>
+              </p>
+              <div class="row text-muted mt-4 fs-5">
+                <div class="col-4">
+                  <strong class="fs-4">{{ stats.ytd_ride_totals.count }}</strong><br><small>rides</small>
+                </div>
+                <div class="col-4">
+                  <strong class="fs-4">{{ stats.ytd_ride_totals.elevation_gain.toFixed(0) }}</strong><br><small>m ↑</small>
+                </div>
+                <div class="col-4">
+                  <strong class="fs-4">{{ stravaService.formatMovingTime(stats.ytd_ride_totals.moving_time) }}</strong><br><small>moving time</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Strava Link -->
+      <div class="text-center mt-5">
+        <a href="https://www.strava.com/athletes/74736765" target="_blank" class="btn btn-outline-secondary btn-lg px-5">
+          <i class="fab fa-strava me-2"></i> Full Profile on Strava
+        </a>
+      </div>
+    </div>
+  </section>
+
   <hr class="m-0"/>
   <!-- Old website-->
   <section class="resume-section" id="old_website">
