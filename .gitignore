@@ -32,3 +32,6 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Secrets — NEVER commit real tokens
+secrets.php

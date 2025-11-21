@@ -1,27 +1,36 @@
-# Hendrikboon
+# Hendrikboon.nl
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.3.
+**Live site**: https://www.hendrikboon.nl 🚀
+
+Personal portfolio website built with Angular + live Strava stats via a custom PHP API.
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Run `ng build` (or `ng build --configuration production` for production).
 
-## Running unit tests
+The build artifacts will be stored in the `dist/` directory and will automatically include:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- The compiled Angular app
+- The full PHP API in `/api/strava/`
 
-## Running end-to-end tests
+## Important: secrets.php (required for the Strava API)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+The Strava API needs the client credentials and refresh token. These are **never committed** to Git.
 
-## Further help
+### Files
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+secrets.php          ← create this file in the project root (add to .gitignore)
+
+### Create `secrets.php` locally
+
+```php
+<?php
+// secrets.php — NEVER commit this file!
+define('STRAVA_CLIENT_ID', 'your_client_id_here');
+define('STRAVA_CLIENT_SECRET', 'client_secret_here');
+define('STRAVA_REFRESH_TOKEN', 'refresh_token_here');
+```
