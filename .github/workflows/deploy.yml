@@ -33,7 +33,6 @@ jobs:
           protocol: ftps
           port: 21
           security: loose
-          reject-unauthorized: false
           local-dir: ./dist/hendrikboon/browser/
           server-dir: /
           dangerous-clean-slate: false
