@@ -32,7 +32,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
           port: 21
-          security: explicit
+          security: loose
           reject-unauthorized: false
           local-dir: ./dist/hendrikboon/browser/
           server-dir: /
