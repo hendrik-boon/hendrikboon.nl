@@ -24,10 +24,10 @@
       </h2>
 
       <!-- Loading / Error -->
-      @if (loading) {
+      @if (stravaLoading) {
         <div class="text-center py-5 text-muted fs-4">Loading latest stats from Strava…</div>
       }
-      @if (error) {
+      @if (stravaError) {
         <div class="alert alert-warning text-center">
           Stats temporarily unavailable —
           <a href="https://www.strava.com/athletes/74736765" target="_blank">view on Strava →</a>
@@ -35,7 +35,7 @@
       }
 
       <!-- Stats Grid -->
-      @if (stats && !loading && !error) {
+      @if (stats && !stravaLoading && !stravaError) {
         <div class="row g-5 justify-content-center">
           <!-- RUNNING -->
           <div class="col-lg-6">
@@ -112,7 +112,8 @@
       <a href="https://github.com/hendrik-boon" target="_blank" class="btn btn-dark btn-lg px-5">
         <i class="fab fa-github me-2"></i> github.com/hendrik-boon
       </a>
-      <p class="text-muted mt-4 mb-0">
+
+      <p class="text-muted mt-2 mb-0">
         <small>
           Feel free to <strong>star</strong> ⭐, <strong>fork</strong> or open an issue<br>
         </small>
@@ -130,4 +131,21 @@
       </div>
     </div>
   </section>
+
+  <hr class="m-0"/>
+  <!-- Footer-->
+  <footer class="fixed-bottom bg-light text-center py-2 text-muted small border-top shadow-sm">
+    <div class="container">
+      © Hendrik Boon {{ currentYear }} • Latest:
+      @if (latestRelease) {
+      <a [href]="latestRelease.html_url" target="_blank" class="text-primary">
+        {{ latestRelease.tag_name }}
+      </a>
+      ({{ githubReleaseService.formatDate(latestRelease.published_at) }})
+      }
+      @else {
+      <span>—</span>
+      }
+    </div>
+  </footer>
 </div>
