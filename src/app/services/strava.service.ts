@@ -28,8 +28,10 @@ export class StravaService {
   private readonly ACTIVITIES_START_DATE = '2020-01-01T00:00:00';
 
   private http = inject(HttpClient);
-  private statsUrl = 'https://hendrikboon.nl/api/strava/strava-stats.php';
-  private activitiesUrl = 'https://hendrikboon.nl/api/strava/strava-ytd-activities.php';
+
+  private readonly workerBaseUrl = 'https://strava-proxy.hendrik-boon.workers.dev';
+  private statsUrl = `${this.workerBaseUrl}/strava/stats`;
+  private activitiesUrl = `${this.workerBaseUrl}/strava/activities`;
 
   async getStats(): Promise<StravaStats> {
     return lastValueFrom(this.http.get<StravaStats>(this.statsUrl));

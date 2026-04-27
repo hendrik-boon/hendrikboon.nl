@@ -1,5 +1,0 @@
-<?php
-// Copy this to secrets.php
-define('STRAVA_CLIENT_ID', 'REPLACE_WITH_REAL');
-define('STRAVA_CLIENT_SECRET', 'REPLACE_WITH_REAL');
-define('STRAVA_REFRESH_TOKEN', 'REPLACE_WITH_REAL');
