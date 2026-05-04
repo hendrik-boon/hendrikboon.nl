@@ -28,153 +28,159 @@
 
       <!-- Loading -->
       @if (stravaLoading) {
-      <div class="text-center py-5 text-muted fs-4">Loading latest stats from Strava…</div>
+        <div class="text-center py-5 text-muted fs-4">Loading latest stats from Strava…</div>
       }
-
 
       @if (stats && !stravaLoading) {
 
-      <!-- YTD Stats Cards -->
-      <div class="row g-4 justify-content-center">
+        <!-- YTD Stats Cards -->
+        <div class="row g-4 justify-content-center">
 
-        <!-- RUNNING -->
-        <div class="col-lg-6">
-          <div class="card h-100 border-0 shadow-sm text-center hover-lift transition-all">
-            <div class="card-body py-4">
-              <h3 class="card-title mb-3 fs-4 text-dark fw-medium">
-                <i class="fas fa-running me-2" style="color: #e74c3c;"></i> Running – YTD
-              </h3>
-              <p class="display-4 fw-bold mb-1 text-muted">
-                {{ stravaService.formatDistance(stats.ytd_run_totals.distance) }}
-                <small class="fs-5 text-muted fw-normal">km</small>
-              </p>
-              <div class="row text-muted mt-3 fs-6">
-                <div class="col-4">
-                  <strong>{{ stats.ytd_run_totals.count }}</strong><br><small>runs</small>
-                </div>
-                <div class="col-4">
-                  <strong>{{ stats.ytd_run_totals.elevation_gain.toFixed(0) }}</strong><br><small>m ↑</small>
-                </div>
-                <div class="col-4">
-                  <strong>{{ stravaService.formatMovingTime(stats.ytd_run_totals.moving_time) }}</strong><br><small>moving</small>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- CYCLING -->
-        <div class="col-lg-6">
-          <div class="card h-100 border-0 shadow-sm text-center hover-lift transition-all">
-            <div class="card-body py-4">
-              <h3 class="card-title mb-3 fs-4 text-dark fw-medium">
-                <i class="fas fa-bicycle me-2" style="color: #f39c12;"></i> Cycling – YTD
-              </h3>
-              <p class="display-4 fw-bold mb-1 text-muted">
-                {{ stravaService.formatDistance(stats.ytd_ride_totals.distance) }}
-                <small class="fs-5 text-muted fw-normal">km</small>
-              </p>
-              <div class="row text-muted mt-3 fs-6">
-                <div class="col-4">
-                  <strong>{{ stats.ytd_ride_totals.count }}</strong><br><small>rides</small>
-                </div>
-                <div class="col-4">
-                  <strong>{{ stats.ytd_ride_totals.elevation_gain.toFixed(0) }}</strong><br><small>m ↑</small>
-                </div>
-                <div class="col-4">
-                  <strong>{{ stravaService.formatMovingTime(stats.ytd_ride_totals.moving_time) }}</strong><br><small>moving</small>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Latest Activities -->
-      @if (recentActivities.length > 0) {
-      <div class="mt-5">
-        <h4 class="text-center mb-4 text-muted fs-5">
-          <i class="fas fa-clock me-2"></i> Latest Activities
-        </h4>
-
-        <div class="row g-3">
-          @for (activity of recentActivities; track activity.id) {
-          <div class="col-lg-6 col-xl-3">
-            <div class="card h-100 border-0 shadow-sm hover-lift">
-              <div class="card-body py-3">
-
-                <div class="d-flex align-items-start mb-3">
-                  <div class="fs-3 me-3 flex-shrink-0">
-                    @if (activity.sport_type === 'Run' || activity.type === 'Run') {
-                    <i class="fas fa-running" style="color: #e74c3c;"></i>
-                    } @else if (activity.sport_type?.includes('Ride') || activity.type === 'Ride') {
-                    <i class="fas fa-bicycle" style="color: #f39c12;"></i>
-                    } @else {
-                    <i class="fas fa-dumbbell" style="color: #6c757d;"></i>
-                    }
-                  </div>
-                  <div class="flex-grow-1">
-                    <h6 class="card-title mb-1 small fw-medium">{{ activity.name }}</h6>
-                    <small class="text-muted">
-                      {{ activity.start_date_local | date:'mediumDate' }}
-                    </small>
-                  </div>
-                </div>
-
-                <!-- Distance & Time -->
-                <p class="mb-2 small">
-                  @if (activity.distance > 0) {
-                  <strong>{{ stravaService.formatDistance(activity.distance) }}</strong> km
-                  }
-                  @if (activity.distance > 0 && activity.moving_time > 0) {
-                  • {{ stravaService.formatMovingTime(activity.moving_time) }}
-                  }
-                  @if (activity.distance === 0 && activity.moving_time > 0) {
-                  {{ stravaService.formatMovingTime(activity.moving_time) }}
-                  }
+          <!-- RUNNING -->
+          <div class="col-lg-6">
+            <div class="card h-100 border-0 shadow-sm text-center hover-lift transition-all">
+              <div class="card-body py-4">
+                <h3 class="card-title mb-3 fs-4 text-dark fw-medium">
+                  <i class="fas fa-running me-2" style="color: #e74c3c;"></i> Running – YTD
+                </h3>
+                <p class="display-4 fw-bold mb-1 text-muted">
+                  {{ stravaService.formatDistance(stats.ytd_run_totals.distance) }}
+                  <small class="fs-5 text-muted fw-normal">km</small>
                 </p>
-
-                <!-- Elevation + Heart Rate -->
-                <div class="row text-muted small g-2">
-                  @if (activity.total_elevation_gain > 0) {
-                  <div class="col-auto">
-                    ↑ {{ activity.total_elevation_gain.toFixed(0) }} m
+                <div class="row text-muted mt-3 fs-6">
+                  <div class="col-4">
+                    <strong>{{ stats.ytd_run_totals.count }}</strong><br><small>runs</small>
                   </div>
-                  }
-                  @if (activity.average_heartrate) {
-                  <div class="col-auto">
-                    ❤️ <strong>{{ activity.average_heartrate | number:'1.0-0' }}</strong> bpm
+                  <div class="col-4">
+                    <strong>{{ stats.ytd_run_totals.elevation_gain.toFixed(0) }}</strong><br><small>m ↑</small>
                   </div>
-                  }
+                  <div class="col-4">
+                    <strong>{{ stravaService.formatMovingTime(stats.ytd_run_totals.moving_time) }}</strong><br><small>moving</small>
+                  </div>
                 </div>
-
               </div>
             </div>
           </div>
-          }
+
+          <!-- CYCLING -->
+          <div class="col-lg-6">
+            <div class="card h-100 border-0 shadow-sm text-center hover-lift transition-all">
+              <div class="card-body py-4">
+                <h3 class="card-title mb-3 fs-4 text-dark fw-medium">
+                  <i class="fas fa-bicycle me-2" style="color: #f39c12;"></i> Cycling – YTD
+                </h3>
+                <p class="display-4 fw-bold mb-1 text-muted">
+                  {{ stravaService.formatDistance(stats.ytd_ride_totals.distance) }}
+                  <small class="fs-5 text-muted fw-normal">km</small>
+                </p>
+                <div class="row text-muted mt-3 fs-6">
+                  <div class="col-4">
+                    <strong>{{ stats.ytd_ride_totals.count }}</strong><br><small>rides</small>
+                  </div>
+                  <div class="col-4">
+                    <strong>{{ stats.ytd_ride_totals.elevation_gain.toFixed(0) }}</strong><br><small>m ↑</small>
+                  </div>
+                  <div class="col-4">
+                    <strong>{{ stravaService.formatMovingTime(stats.ytd_ride_totals.moving_time) }}</strong><br><small>moving</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
-      </div>
-      <!-- Load More Button -->
-      @if (hasMoreActivities && recentActivities.length > 0) {
-      <div class="text-center mt-4">
-        <button
-          class="btn btn-outline-secondary px-4"
-          (click)="loadMoreActivities()"
-          [disabled]="loadingMore">
 
-          @if (loadingMore) {
-          <span class="spinner-border spinner-border-sm me-2" role="status"></span>
-          Loading...
-          } @else {
-          <i class="fas fa-plus me-2"></i> Load More Activities
-          }
-        </button>
-      </div>
-      }
-      }
-      }
+        <!-- Latest Activities -->
+        @if (recentActivities.length > 0) {
+          <div class="mt-5">
+            <h4 class="text-center mb-4 text-muted fs-5">
+              <i class="fas fa-clock me-2"></i> Latest Activities
+            </h4>
 
+            <div class="row g-3">
+              @for (activity of recentActivities; track activity.id) {
+                <div class="col-lg-6 col-xl-3">
+                  <a
+                    [href]="'https://www.strava.com/activities/' + activity.id"
+                    target="_blank"
+                    class="text-decoration-none">
+
+                    <div class="card h-100 border-0 shadow-sm hover-lift transition-all">
+                      <div class="card-body py-3">
+
+                        <div class="d-flex align-items-start mb-3">
+                          <div class="fs-3 me-3 flex-shrink-0">
+                            @if (activity.sport_type === 'Run' || activity.type === 'Run') {
+                              <i class="fas fa-running" style="color: #e74c3c;"></i>
+                            } @else if (activity.sport_type?.includes('Ride') || activity.type === 'Ride') {
+                              <i class="fas fa-bicycle" style="color: #f39c12;"></i>
+                            } @else {
+                              <i class="fas fa-dumbbell" style="color: #6c757d;"></i>
+                            }
+                          </div>
+                          <div class="flex-grow-1">
+                            <h6 class="card-title mb-1 small fw-medium">{{ activity.name }}</h6>
+                            <small class="text-muted">
+                              {{ activity.start_date_local | date:'mediumDate' }}
+                            </small>
+                          </div>
+                        </div>
+
+                        <!-- Distance & Time -->
+                        <p class="mb-2 small">
+                          @if (activity.distance > 0) {
+                            <strong>{{ stravaService.formatDistance(activity.distance) }}</strong> km
+                          }
+                          @if (activity.distance > 0 && activity.moving_time > 0) {
+                            • {{ stravaService.formatMovingTime(activity.moving_time) }}
+                          }
+                          @if (activity.distance === 0 && activity.moving_time > 0) {
+                            {{ stravaService.formatMovingTime(activity.moving_time) }}
+                          }
+                        </p>
+
+                        <!-- Elevation + Heart Rate -->
+                        <div class="row text-muted small g-2">
+                          @if (activity.total_elevation_gain > 0) {
+                            <div class="col-auto">
+                              ↑ {{ activity.total_elevation_gain.toFixed(0) }} m
+                            </div>
+                          }
+                          @if (activity.average_heartrate) {
+                            <div class="col-auto">
+                              ❤️ <strong>{{ activity.average_heartrate | number:'1.0-0' }}</strong> bpm
+                            </div>
+                          }
+                        </div>
+
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              }
+            </div>
+
+            <!-- Load More Button -->
+            @if (hasMoreActivities && recentActivities.length > 0) {
+              <div class="text-center mt-4">
+                <button
+                  class="btn btn-outline-secondary px-4"
+                  (click)="loadMoreActivities()"
+                  [disabled]="loadingMore">
+
+                  @if (loadingMore) {
+                    <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                    Loading...
+                  } @else {
+                    <i class="fas fa-plus me-2"></i> Load More Activities
+                  }
+                </button>
+              </div>
+            }
+          </div>
+        }
+
+      }
     </div>
   </section>
 
@@ -219,12 +225,12 @@
     <div class="container">
       © Hendrik Boon {{ currentYear }} • Latest:
       @if (latestRelease) {
-      <a [href]="latestRelease.html_url" target="_blank" class="text-primary">
-        {{ latestRelease.tag_name }}
-      </a>
-      ({{ githubReleaseService.formatDate(latestRelease.published_at) }})
+        <a [href]="latestRelease.html_url" target="_blank" class="text-primary">
+          {{ latestRelease.tag_name }}
+        </a>
+        ({{ githubReleaseService.formatDate(latestRelease.published_at) }})
       } @else {
-      <span>—</span>
+        <span>—</span>
       }
     </div>
   </footer>
